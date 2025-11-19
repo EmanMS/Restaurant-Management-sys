@@ -1,8 +1,7 @@
-
-import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useEffect, PropsWithChildren } from 'react';
 import { Order, Product, Table, Shift, OrderItem, OrderStatus, Staff } from '../types';
 import { PRODUCTS, INITIAL_TABLES, INITIAL_STAFF } from '../constants';
-import { TRANSLATIONS, Language } from '../translations.ts';
+import { TRANSLATIONS, Language } from '../translations';
 
 // --- State Definition ---
 interface AppState {
@@ -204,7 +203,7 @@ const AppContext = createContext<{
   t: (key: keyof typeof TRANSLATIONS['en']) => string;
 } | null>(null);
 
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   // Persistence

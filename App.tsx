@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { POSLayout } from './components/POSLayout';
@@ -9,17 +8,29 @@ import { AdminPage } from './pages/Admin';
 const AppContent = () => {
   const { state } = useApp();
 
-  const renderView = () => {
-    switch (state.view) {
-        case 'KDS': return <KDSPage />;
-        case 'ADMIN': return <AdminPage />;
-        default: return <POSMain />;
-    }
-  };
+  // If shift is not open, show Login screen (POSMain handles this state)
+  // We do NOT wrap this in POSLayout to hide the sidebar
+  if (!state.shift.isOpen) {
+      return <POSMain />;
+  }
+
+  // Determine which view to show inside the layout
+  let view: React.ReactNode;
+  switch (state.view) {
+      case 'KDS': 
+        view = <KDSPage />;
+        break;
+      case 'ADMIN': 
+        view = <AdminPage />;
+        break;
+      default: 
+        // If shift is open, POSMain renders Menu or FloorPlan
+        view = <POSMain />;
+  }
 
   return (
     <POSLayout>
-      {renderView()}
+      {view}
     </POSLayout>
   );
 };

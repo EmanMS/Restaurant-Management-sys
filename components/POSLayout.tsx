@@ -1,9 +1,8 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, PropsWithChildren } from 'react';
 import { useApp } from '../context/AppContext';
 import { LayoutGrid, Coffee, LogOut, LayoutDashboard, ChefHat, Sun, Moon, Globe, UtensilsCrossed, MoreVertical, X } from 'lucide-react';
 
-export const POSLayout = ({ children }: { children: React.ReactNode }) => {
+export const POSLayout = ({ children }: PropsWithChildren) => {
   const { state, dispatch, t } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

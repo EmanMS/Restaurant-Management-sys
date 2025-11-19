@@ -22,8 +22,6 @@ export const POSMain = () => {
 
       if (selectedRole === 'MANAGER') {
           // Backend Auth Simulation:
-          // We removed the hardcoded check for '1234'.
-          // In a real app, this payload would go to an API.
           if (!password.trim()) {
               setError(t('invalidPassword'));
               return;
@@ -43,8 +41,8 @@ export const POSMain = () => {
   // 1. Login / Shift Start Screen
   if (!state.shift.isOpen) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-100 dark:bg-slate-900 p-4 pb-32">
-        <div className="max-w-md w-full bg-white dark:bg-slate-800 p-8 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl animate-in zoom-in-95 duration-300">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-slate-900 p-4 pb-20 overflow-y-auto">
+        <div className="max-w-md w-full bg-white dark:bg-slate-800 p-8 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl animate-in zoom-in-95 duration-300 my-auto">
           <div className="flex justify-center mb-6">
              <div className="p-4 bg-primary/10 rounded-full text-primary">
                 <Lock size={32} />
@@ -125,18 +123,22 @@ export const POSMain = () => {
                     {error}
                 </div>
             )}
-
-            <Button 
-                fullWidth 
-                size="lg"
-                onClick={handleLogin}
-                className="py-4 text-lg shadow-xl shadow-primary/20"
-                disabled={!cashierName.trim()}
-            >
-                {t('openRegister')}
-            </Button>
+            
+            <div className="pt-4">
+                <Button 
+                    fullWidth 
+                    size="lg"
+                    onClick={handleLogin}
+                    className="py-4 text-lg shadow-xl shadow-primary/20 mb-2"
+                    disabled={!cashierName.trim()}
+                >
+                    {t('openRegister')}
+                </Button>
+            </div>
           </div>
         </div>
+        {/* Spacer to ensure distance from bottom screen */}
+        <div className="h-10 w-full"></div>
       </div>
     );
   }
