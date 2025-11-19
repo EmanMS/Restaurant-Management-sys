@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { FloorPlan } from './FloorPlan';
@@ -138,7 +137,7 @@ export const POSMain = () => {
           </div>
         </div>
         {/* Large spacer to ensure distance from bottom screen */}
-        <div className="h-24 w-full shrink-0"></div>
+        <div className="h-32 w-full shrink-0"></div>
       </div>
     );
   }

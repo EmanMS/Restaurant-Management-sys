@@ -16,7 +16,7 @@ const AppContent = () => {
   }
 
   // Determine which view to show inside the layout
-  let view: React.ReactNode;
+  let view;
   switch (state.view) {
       case 'KDS': 
         view = <KDSPage />;
