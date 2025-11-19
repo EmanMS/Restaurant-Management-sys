@@ -41,8 +41,8 @@ export const POSMain = () => {
   // 1. Login / Shift Start Screen
   if (!state.shift.isOpen) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-slate-900 p-4 pb-20 overflow-y-auto">
-        <div className="max-w-md w-full bg-white dark:bg-slate-800 p-8 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl animate-in zoom-in-95 duration-300 my-auto">
+      <div className="h-screen w-full flex flex-col items-center justify-center bg-gray-100 dark:bg-slate-900 p-4 overflow-y-auto">
+        <div className="max-w-md w-full bg-white dark:bg-slate-800 p-8 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col">
           <div className="flex justify-center mb-6">
              <div className="p-4 bg-primary/10 rounded-full text-primary">
                 <Lock size={32} />
@@ -124,12 +124,12 @@ export const POSMain = () => {
                 </div>
             )}
             
-            <div className="pt-4">
+            <div className="pt-4 mb-4">
                 <Button 
                     fullWidth 
                     size="lg"
                     onClick={handleLogin}
-                    className="py-4 text-lg shadow-xl shadow-primary/20 mb-2"
+                    className="py-4 text-lg shadow-xl shadow-primary/20 mb-6"
                     disabled={!cashierName.trim()}
                 >
                     {t('openRegister')}
@@ -137,8 +137,8 @@ export const POSMain = () => {
             </div>
           </div>
         </div>
-        {/* Spacer to ensure distance from bottom screen */}
-        <div className="h-10 w-full"></div>
+        {/* Large spacer to ensure distance from bottom screen */}
+        <div className="h-24 w-full shrink-0"></div>
       </div>
     );
   }

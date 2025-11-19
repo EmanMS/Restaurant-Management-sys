@@ -9,7 +9,8 @@ const AppContent = () => {
   const { state } = useApp();
 
   // If shift is not open, show Login screen (POSMain handles this state)
-  // We do NOT wrap this in POSLayout to hide the sidebar
+  // We do NOT wrap this in POSLayout to hide the sidebar, fulfilling the requirement
+  // to not show the sidebar on the login page.
   if (!state.shift.isOpen) {
       return <POSMain />;
   }
