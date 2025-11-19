@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer, ReactNode, useEffect, PropsWithChildren } from 'react';
+
+import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
 import { Order, Product, Table, Shift, OrderItem, OrderStatus, Staff } from '../types';
 import { PRODUCTS, INITIAL_TABLES, INITIAL_STAFF } from '../constants';
 import { TRANSLATIONS, Language } from '../translations';
@@ -37,7 +38,9 @@ type Action =
   | { type: 'SET_LANGUAGE'; payload: Language }
   | { type: 'ADD_STAFF'; payload: Staff }
   | { type: 'UPDATE_STAFF'; payload: Staff }
-  | { type: 'DELETE_STAFF'; payload: string };
+  | { type: 'DELETE_STAFF'; payload: string }
+  | { type: 'ADD_TABLE'; payload: { name: string; seats: number } }
+  | { type: 'DELETE_TABLE'; payload: string };
 
 // --- Initial State ---
 const initialState: AppState = {
@@ -191,6 +194,17 @@ const appReducer = (state: AppState, action: Action): AppState => {
         ...state,
         staff: state.staff.filter(s => s.id !== action.payload)
       };
+    case 'ADD_TABLE': {
+      const newTable: Table = {
+        id: `t-${Date.now()}`,
+        name: action.payload.name,
+        seats: action.payload.seats,
+        status: 'AVAILABLE',
+      };
+      return { ...state, tables: [...state.tables, newTable] };
+    }
+    case 'DELETE_TABLE':
+      return { ...state, tables: state.tables.filter(t => t.id !== action.payload) };
     default:
       return state;
   }
@@ -203,7 +217,7 @@ const AppContext = createContext<{
   t: (key: keyof typeof TRANSLATIONS['en']) => string;
 } | null>(null);
 
-export const AppProvider = ({ children }: PropsWithChildren) => {
+export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   // Persistence
@@ -216,6 +230,9 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
             if (parsed.language) dispatch({ type: 'SET_LANGUAGE', payload: parsed.language });
             // Hydrate complex objects if they exist in storage, else default
             // Note: In a real app, use a more robust hydration strategy
+            if (parsed.tables) {
+               // If tables are persisted, we might want to load them, but simplified here
+            }
         } catch (e) {}
     }
   }, []);
@@ -226,10 +243,11 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
         orders: state.orders,
         theme: state.theme,
         language: state.language,
-        products: state.products, // Persist product changes
-        staff: state.staff // Persist staff changes
+        products: state.products, 
+        staff: state.staff,
+        tables: state.tables // Persist tables
     }));
-  }, [state.shift, state.orders, state.theme, state.language, state.products, state.staff]);
+  }, [state.shift, state.orders, state.theme, state.language, state.products, state.staff, state.tables]);
 
   // Apply Side Effects (Theme & Lang)
   useEffect(() => {

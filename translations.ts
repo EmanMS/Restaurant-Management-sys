@@ -106,7 +106,12 @@ export const TRANSLATIONS = {
     cat_Desserts: 'Desserts',
     restaurantName: 'RestoFlow Pro',
     darkMode: 'Dark Mode',
-    lightMode: 'Light Mode'
+    lightMode: 'Light Mode',
+    // Table Management
+    addTable: 'Add Table',
+    tableName: 'Table Name',
+    seats: 'Seats',
+    cantDeleteOccupied: 'Cannot delete an occupied table.',
   },
   ar: {
     pos: 'نقطة البيع',
@@ -212,6 +217,11 @@ export const TRANSLATIONS = {
     cat_Desserts: 'حلوى',
     restaurantName: 'ريستو فلو برو',
     darkMode: 'الوضع الليلي',
-    lightMode: 'الوضع النهاري'
+    lightMode: 'الوضع النهاري',
+    // Table Management
+    addTable: 'إضافة طاولة',
+    tableName: 'اسم الطاولة',
+    seats: 'مقاعد',
+    cantDeleteOccupied: 'لا يمكن حذف طاولة مشغولة',
   }
 };
